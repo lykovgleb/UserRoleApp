@@ -1,12 +1,18 @@
-using Back.Models;
+using Back.Business.Interfaces;
+using Back.Business.Mapper;
+using Back.Business.Services;
+using Back.Data;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder();
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 builder.Services.AddDbContext<UserRoleContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddAutoMapper(typeof(UserProfile), typeof(RoleProfile));
 
 var app = builder.Build();
 
@@ -19,13 +25,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.MapRazorPages();
 
 app.Run();
 
