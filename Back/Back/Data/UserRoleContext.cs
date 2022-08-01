@@ -11,7 +11,6 @@ namespace Back.Data
         public UserRoleContext(DbContextOptions<UserRoleContext> options)
         : base(options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
     }

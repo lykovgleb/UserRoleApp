@@ -6,7 +6,7 @@ namespace Back.Controllers
 {
 
 
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -50,8 +50,8 @@ namespace Back.Controllers
         {
             try
             {
-                await _UserService.AddUserAsync(userDTO);
-                return Ok();
+                var AddedUserDTO = await _UserService.AddUserAsync(userDTO);
+                return Ok(AddedUserDTO);
             }
             catch (Exception e)
             {

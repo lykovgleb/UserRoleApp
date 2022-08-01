@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public List<Role> Roles { get; set; }
+        public IList<Role> Roles { get; set; } = new List<Role>();
     }
 }

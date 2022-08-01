@@ -18,11 +18,12 @@ namespace Back.Business.Services
             _mapper = mapper;
         }
 
-        public async Task AddRoleAsync(RoleDTO roleDTO)
+        public async Task<RoleDTO> AddRoleAsync(RoleDTO roleDTO)
         {
             var role = _mapper.Map<Role>(roleDTO);
             await _userRoleContext.Roles.AddAsync(role);
             await _userRoleContext.SaveChangesAsync();
+            return _mapper.Map<RoleDTO>(role);
         }
 
         public async Task DeleteRoleAsync(int id)

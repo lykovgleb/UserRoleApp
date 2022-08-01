@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Back.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -27,7 +27,6 @@ namespace Back.Controllers
             {
                 return BadRequest(e.Message);
             }
-
         }
 
         [HttpGet("{id}")]
@@ -41,7 +40,6 @@ namespace Back.Controllers
             {
                 return BadRequest(e.Message);
             }
-
         }
 
         [HttpPost]
@@ -49,14 +47,13 @@ namespace Back.Controllers
         {
             try
             {
-                await _RoleService.AddRoleAsync(roleDTO);
-                return Ok();
+                var AddedRoleDTO = await _RoleService.AddRoleAsync(roleDTO);
+                return Ok(AddedRoleDTO);
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-
         }
 
         [HttpPut]
