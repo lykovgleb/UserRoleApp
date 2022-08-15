@@ -1,0 +1,11 @@
+#sidebar{
+    float: left;
+    width: 200px;
+}
+#main{
+    margin-left: 240px; /* 150px (ширина сайдбара) + 10px + 10px (2 отступа) */
+}
+#header{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
