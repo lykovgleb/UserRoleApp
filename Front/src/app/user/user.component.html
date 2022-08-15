@@ -1,0 +1,5 @@
+<div *ngFor="let user of users">
+    <p> {{user.userId}} {{user.userName}} </p>
+    <span *ngFor="let role of user.userRoles"> {{role.name}} </span>
+    <p> <a routerLink="/change/{{user.userId}}">Change</a> <button (click)="deleteUser(user)">Delete</button></p>
+</div>

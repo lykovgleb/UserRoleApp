@@ -1,0 +1,19 @@
+<div id="header">
+    <button (click)="addUser()">Add</button>
+</div>
+<div id="sidebar" class="container">
+    <div *ngFor="let role of roles">
+        <button (click)="addRoleToUser(role)" [disabled]="showAddRoleButton(role)">{{role.name}}</button>
+    </div>
+    <app-add-role></app-add-role>
+</div>
+<div id="main" class="container">
+    <label>User name:</label>
+    <input type="text" [(ngModel)]="user.userName" />
+    <div>
+        <label>Roles:</label>
+        <div *ngFor="let userRole of user.userRoles">
+            <button (click)="removeRoleFromUser(userRole)">{{userRole.name}}</button>
+        </div>
+    </div>
+</div>
