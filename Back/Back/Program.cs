@@ -14,21 +14,32 @@ builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(UserProfile), typeof(RoleProfile));
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", p =>
+    {
+        p.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseCors("AllowAll");
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapSwagger();
 });
-app.UseAuthorization();
 
 app.Run();
 
