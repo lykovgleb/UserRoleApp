@@ -2,7 +2,7 @@
     <button (click)="addUser()">Add</button>
 </div>
 <div id="sidebar" class="container">
-    <div *ngFor="let role of roles">
+    <div *ngFor="let role of roles$ | async">
         <button (click)="addRoleToUser(role)" [disabled]="showAddRoleButton(role)">{{role.name}}</button>
     </div>
     <app-add-role></app-add-role>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { HttpService } from '../http.service';
 import { Role } from '../Models/Role';
+import { AddRoleAction } from '../state/role-actions';
 
 @Component({
   selector: 'app-add-role',
@@ -14,9 +16,10 @@ export class AddRoleComponent {
     name: "",
   };
 
-  constructor(private http : HttpService) { }
+  constructor(private http : HttpService, private store: Store) { }
 
   addRole() {
-    return this.http.addRole(this.role).subscribe()
+  
+    this.store.dispatch(new AddRoleAction(this.role))
   }
 }

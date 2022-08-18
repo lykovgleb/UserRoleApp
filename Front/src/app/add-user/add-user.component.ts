@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
 import { Role } from '../Models/Role';
 import { User } from '../Models/User';
+import { RoleSelectors } from '../state/role-selectors';
 
 @Component({
   selector: 'app-add-user',
@@ -9,7 +12,9 @@ import { User } from '../Models/User';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  roles : Role[] = [];
+  
+  @Select(RoleSelectors.roles) roles$!: Observable<Role[]>;
+  //roles : Role[] = [];
   user: User ={
     userId : 0,
     userName : "",
@@ -18,7 +23,7 @@ export class AddUserComponent implements OnInit {
   constructor(private http : HttpService) { }
 
   ngOnInit(): void {
-    this.getRoles();
+    //this.getRoles();
   }
 
   addRoleToUser(role : Role) {
@@ -38,10 +43,10 @@ export class AddUserComponent implements OnInit {
       subscribe()
   }
 
-  private getRoles() {
-    this.http.getRoles()
-      .subscribe((roles : any) => this.roles = roles )
-  }
+  // private getRoles() {
+  //   this.http.getRoles()
+  //     .subscribe((roles : any) => this.roles = roles )
+  // }
 }
 
 
