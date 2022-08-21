@@ -14,6 +14,8 @@ import { ChangeUserComponent } from './change-user/change-user.component';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from 'src/environments/environment';
 import { RoleState } from './state/role-state';
+import { UserState } from './state/user-state';
+import { UserFormComponent } from './user-form/user-form.component';
 
 
 @NgModule({
@@ -22,14 +24,15 @@ import { RoleState } from './state/role-state';
     AddUserComponent,
     UserComponent,
     AddRoleComponent,
-    ChangeUserComponent
+    ChangeUserComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxsModule.forRoot([RoleState],{developmentMode: !environment.production})
+    NgxsModule.forRoot([RoleState, UserState],{developmentMode: !environment.production})
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

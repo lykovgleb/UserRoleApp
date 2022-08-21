@@ -1,10 +1,10 @@
 <div id="header">
     <button (click)="saveUser()">Save</button>
 </div>
-<div *ngIf="user">
+<div *ngIf="user$ |async">
     <div id="sidebar" class="container">
-        <div *ngFor="let role of roles">
-            <button *ngIf="showAddRoleButton(role)" (click)="addRoleToUser(role)">{{role.name}}</button>
+        <div *ngFor="let role of roles$ |async">
+            <button *ngIf="user.userRoles.includes(role)" (click)="addRoleToUser(role)">{{role.name}}</button>
         </div>
         <app-add-role></app-add-role>
     </div>

@@ -7,8 +7,8 @@ namespace Back.Business.Interfaces
         public Task<IList<UserDTO>> GetUsersAsync();
         public Task<UserDTO> GetUserByIdAsync(int id);
         public Task<UserDTO> AddUserAsync(UserDTO userDTO);
-        public Task UpdateUserAsync(UserDTO userDTO);
-        public Task DeleteUserAsync(int id);
+        public Task<UserDTO> UpdateUserAsync(UserDTO userDTO);
+        public Task<UserDTO> DeleteUserAsync(int id);
 
 
     }

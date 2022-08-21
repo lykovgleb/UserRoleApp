@@ -1,0 +1,19 @@
+<div class="rolesPull">
+    <div *ngFor="let role of roles$ |async">
+        <button *ngIf="this.userForm.value.userRoles.includes(role)"
+            (click)="addRoleToUser(role)">{{role.name}}</button>
+    </div>
+    <app-add-role></app-add-role>
+</div>
+<div class="user">
+    <div class="form-group">
+        <label>User name:</label>
+        <input class="form-control" formControlName="userName" />
+    </div>
+    <div class="form-group">
+        <label>Roles:</label>
+        <button *ngFor="let userRole of this.userForm.value.userRoles" (click)="removeRoleFromUser(userRole)">
+            {{userRole.name}}
+        </button>
+    </div>
+</div>

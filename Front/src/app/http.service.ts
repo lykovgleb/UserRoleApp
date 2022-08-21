@@ -21,11 +21,11 @@ export class HttpService {
     }
 
     changeUser(user: User) {
-        return this.http.put(environment.baseUrl + '/User', user).pipe();
+        return this.http.put<User>(environment.baseUrl + '/User', user).pipe();
     }
 
     deleteUser(user: User) {
-        return this.http.delete(environment.baseUrl + '/User/' + user.userId).pipe();
+        return this.http.delete<User>(environment.baseUrl + '/User/' + user.userId).pipe();
     }
 
     getRoles() {

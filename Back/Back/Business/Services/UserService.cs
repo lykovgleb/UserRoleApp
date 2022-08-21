@@ -34,11 +34,13 @@ namespace Back.Business.Services
             return _mapper.Map<UserDTO>(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task<UserDTO> DeleteUserAsync(int id)
         {
             var user = await GetUserIfExistAsync(id);
             _userRoleContext.Users.Remove(user);
             await _userRoleContext.SaveChangesAsync();
+            var userDto = _mapper.Map<UserDTO>(user);
+            return userDto;
         }
 
         public async Task<UserDTO> GetUserByIdAsync(int id)
@@ -55,7 +57,7 @@ namespace Back.Business.Services
             return usersDTO;
         }
 
-        public async Task UpdateUserAsync(UserDTO userDTO)
+        public async Task<UserDTO> UpdateUserAsync(UserDTO userDTO)
         {
             var user = _mapper.Map<User>(userDTO);
             var oldUser = await GetUserIfExistAsync(user.Id);
@@ -67,6 +69,8 @@ namespace Back.Business.Services
                 oldUser.Roles.Add(roleToAdd);
             }
             await _userRoleContext.SaveChangesAsync();
+            var newUserDTO = _mapper.Map<UserDTO>(oldUser);
+            return newUserDTO;
         }
 
         private async Task<User> GetUserIfExistAsync(int id)

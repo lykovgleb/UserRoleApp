@@ -21,9 +21,7 @@ export class RoleState {
     constructor(private http: HttpService) { }
 
     @Action(AddRoleAction)
-    addRole(ctx: StateContext<RoleStateModel>, addRole: AddRoleAction) {
-
-        const {role} = addRole;
+    addRole(ctx: StateContext<RoleStateModel>, {role}: AddRoleAction) {
 
         if (!role) return;
 
@@ -31,19 +29,21 @@ export class RoleState {
 
             const state = ctx.getState();
             ctx.patchState({
-                roles: [...state.roles, newRole],
-            })            
+                roles: [...state.roles, newRole]
+            })
+            console.log("AddRoleAction")         
         }))        
     }
 
     @Action(GetRolesAction)
     getRoles(ctx: StateContext<RoleStateModel>) {
-        return this.http.getRoles().pipe(tap(roles => {
+        return this.http.getRoles().pipe(tap((roles: Role[]) => {
             const state = ctx.getState();
             ctx.setState({
                 ...state,
                 roles:roles
             })
+            console.log("GetRolesAction")
         }))
     }
 }

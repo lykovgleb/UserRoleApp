@@ -1,0 +1,7 @@
+.rolesPull{
+    float: left;
+    width: 200px;
+}
+.user{
+    margin-left: 240px; /* 150px (ширина сайдбара) + 10px + 10px (2 отступа) */
+}

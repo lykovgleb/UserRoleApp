@@ -65,8 +65,8 @@ namespace Back.Controllers
         {
             try
             {
-                await _UserService.UpdateUserAsync(userDTO);
-                return Ok();
+                var UpdatedUserDTO = await _UserService.UpdateUserAsync(userDTO);
+                return Ok(UpdatedUserDTO);
             }
             catch (Exception e)
             {
@@ -80,8 +80,8 @@ namespace Back.Controllers
         {
             try
             {
-                await _UserService.DeleteUserAsync(id);
-                return Ok();
+                var userDTO = await _UserService.DeleteUserAsync(id);
+                return Ok(userDTO);
             }
             catch (Exception e)
             {
