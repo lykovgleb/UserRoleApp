@@ -1,5 +1,4 @@
-<div class="container">
-    <label>New role name:</label>
-    <input [(ngModel)]="role.name" />
-    <button (click)="addRole()">Add</button>
+<div class="form-group">
+    <input placeholder="New role" class="form-control" name="name" [(ngModel)]="role.name" />
+    <button type="button" (click)="addRole()">Add</button>
 </div>

@@ -18,6 +18,8 @@ export class AddRoleComponent {
 
   constructor(private http : HttpService, private store: Store) { }
 
+  
+
   addRole() {
     this.store.dispatch(new AddRoleAction(this.role))
     this.role = {

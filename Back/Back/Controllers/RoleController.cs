@@ -47,8 +47,7 @@ namespace Back.Controllers
         {
             try
             {
-                var AddedRoleDTO = await _RoleService.AddRoleAsync(roleDTO);
-                return Ok(AddedRoleDTO);
+                return Ok(await _RoleService.AddRoleAsync(roleDTO));
             }
             catch (Exception e)
             {
@@ -62,8 +61,7 @@ namespace Back.Controllers
 
             try
             {
-                await _RoleService.UpdateRoleAsync(roleDTO);
-                return Ok();
+                return Ok(await _RoleService.UpdateRoleAsync(roleDTO));
             }
             catch (Exception e)
             {
@@ -75,9 +73,8 @@ namespace Back.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             try
-            {
-                await _RoleService.DeleteRoleAsync(id);
-                return Ok();
+            {                
+                return Ok(await _RoleService.DeleteRoleAsync(id));
             }
             catch (Exception e)
             {

@@ -1,10 +1,8 @@
+<button type="button" routerLink="/form">Add user</button>
+
 <div *ngFor="let user of users$ | async">
     <p> {{user.userId}} {{user.userName}} </p>
     <span *ngFor="let role of user.userRoles"> {{role.name}} </span>
-    <a routerLink="/change/{{user.userId}}">Change</a>
-    <form action="userform">
-        <button (click)="changeUser(user)">Change</button>
-    </form>
+    <button (click)="changeUser(user)">Change</button>
     <button (click)="deleteUser(user)">Delete</button>
-    
 </div>

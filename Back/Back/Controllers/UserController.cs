@@ -50,14 +50,12 @@ namespace Back.Controllers
         {
             try
             {
-                var AddedUserDTO = await _UserService.AddUserAsync(userDTO);
-                return Ok(AddedUserDTO);
+                return Ok(await _UserService.AddUserAsync(userDTO));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-
         }
 
         [HttpPut]
@@ -65,8 +63,7 @@ namespace Back.Controllers
         {
             try
             {
-                var UpdatedUserDTO = await _UserService.UpdateUserAsync(userDTO);
-                return Ok(UpdatedUserDTO);
+                return Ok(await _UserService.UpdateUserAsync(userDTO));
             }
             catch (Exception e)
             {
@@ -80,8 +77,7 @@ namespace Back.Controllers
         {
             try
             {
-                var userDTO = await _UserService.DeleteUserAsync(id);
-                return Ok(userDTO);
+                return Ok(await _UserService.DeleteUserAsync(id));
             }
             catch (Exception e)
             {

@@ -7,7 +7,7 @@ namespace Back.Business.Interfaces
         public Task<IList<RoleDTO>> GetRolesAsync();
         public Task<RoleDTO> GetRoleByIdAsync(int id);
         public Task<RoleDTO> AddRoleAsync(RoleDTO roleDTO);
-        public Task UpdateRoleAsync(RoleDTO roleDTO);
-        public Task DeleteRoleAsync(int id);
+        public Task<RoleDTO> UpdateRoleAsync(RoleDTO roleDTO);
+        public Task<RoleDTO> DeleteRoleAsync(int id);
     }
 }

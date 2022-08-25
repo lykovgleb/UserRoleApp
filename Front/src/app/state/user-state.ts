@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Action, createSelector, State, StateContext } from "@ngxs/store";
+import { Action, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { HttpService } from "../http.service";
 import { User } from "../Models/User";
@@ -23,7 +23,7 @@ export class UserState {
     constructor(private http: HttpService) { }
 
     @Action(SetEditedUserAction)
-    SetEditedUser(ctx: StateContext<UserStateModel>, { user }: SetEditedUserAction) {
+    setEditedUser(ctx: StateContext<UserStateModel>, { user }: SetEditedUserAction) {
         const state = ctx.getState()
         ctx.setState({
             ...state,
@@ -32,7 +32,7 @@ export class UserState {
     }
 
     @Action(GetUsersAction)
-    GetUsers(ctx: StateContext<UserStateModel>) {
+    getUsers(ctx: StateContext<UserStateModel>) {
         return this.http.getUsers().pipe(tap((users: User[]) => {
             const state = ctx.getState()
             ctx.setState({
@@ -44,7 +44,7 @@ export class UserState {
     }
 
     @Action(AddUserAction)
-    AddUser(ctx: StateContext<UserStateModel>, { user }: AddUserAction) {
+    addUser(ctx: StateContext<UserStateModel>, { user }: AddUserAction) {
 
         if (!user) return;
 
@@ -58,7 +58,7 @@ export class UserState {
     }
 
     @Action(DeleteUserAction)
-    DeleteUser(ctx: StateContext<UserStateModel>, { user }: AddUserAction) {
+    deleteUser(ctx: StateContext<UserStateModel>, { user }: AddUserAction) {
 
         if (!user) return;
 
@@ -68,18 +68,19 @@ export class UserState {
             ctx.patchState({
                 users: newState
             })
+
         }))
     }
 
     @Action(UpdateUserAction)
-    UpdateUser(ctx: StateContext<UserStateModel>, {user}: UpdateUserAction) {
-        
+    updateUser(ctx: StateContext<UserStateModel>, { user }: UpdateUserAction) {
+
         if (!user) return;
 
         return this.http.changeUser(user).pipe(tap((updatedUser: User) => {
             const state = ctx.getState()
             const newUsers = [...state.users]
-            newUsers[newUsers.findIndex(user => user.userId === updatedUser.userId)]
+            newUsers[newUsers.findIndex(user => user.userId === updatedUser.userId)] = updatedUser;
             ctx.patchState({
                 users: newUsers
             })

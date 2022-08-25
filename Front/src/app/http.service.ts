@@ -36,5 +36,12 @@ export class HttpService {
         return this.http.post<Role>(environment.baseUrl + '/Role', role).pipe();
     }
 
+    deleteRole(role: Role) {
+        return this.http.delete<Role>(environment.baseUrl + '/Role/' + role.id).pipe();
+    }
+
+    changeRole(role: Role) {
+        return this.http.put<Role>(environment.baseUrl + '/Role', role).pipe();
+    }
 
 }

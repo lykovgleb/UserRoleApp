@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subscription } from 'rxjs';
 import { Role } from '../Models/Role';
 import { User } from '../Models/User';
+import { GetRolesAction, SetEditedRoleAction } from '../state/role-actions';
 import { RoleSelectors } from '../state/role-selectors';
 import { AddUserAction, SetEditedUserAction, UpdateUserAction } from '../state/user-actions';
 import { UserSelectors } from '../state/user-selector';
@@ -13,52 +15,60 @@ import { UserSelectors } from '../state/user-selector';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnDestroy {
+
   @Select(UserSelectors.editedUser) user$!: Observable<User>
+
   @Select(RoleSelectors.roles) roles$!: Observable<Role[]>
+  editedRoleId: number = 0
+
   userForm: FormGroup = this.fb.group({
     userId: 0,
-    userName: '',
-    userRoles: []
-  });
+    userName: ['', Validators.required],
+    userRoles: [[]]
+  });;
   editUser = false;
-  private subscription: Subscription = new Subscription();
+  private sb = new Subscription();
 
-  constructor(private fb: FormBuilder, private store: Store) {
-    // this.userForm = this.fb.group({
-    //   userId: 0,
-    //   userName: '',
-    //   userRoles: []
-    // })
+  constructor(private fb: FormBuilder, private store: Store, private router: Router) {
+  }
+  ngOnDestroy(): void {
+    this.clearForm();
+    this.sb.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.subscription.add(
+    this.sb.add(
+      this.roles$.subscribe(roles => {
+        if (roles.length === 0) {
+          this.store.dispatch(new GetRolesAction());
+        }
+      })
+    )
+    this.sb.add(
       this.user$.subscribe(user => {
         if (user) {
+          console.log(user)
           this.userForm.patchValue({
             userId: user.userId,
             userName: user.userName,
-            userRoles: user.userRoles
+            userRoles: [...user.userRoles]
           })
           this.editUser = true;
+          console.log(this.userForm)
         }
-        else this.editUser = false;
-      }
-      )
+        else this.editUser = false
+      })
     )
   }
 
-  submit(){
+  submit() {
     if (this.editUser) {
-      this.subscription.add(
-        this.store.dispatch(new UpdateUserAction(this.userForm.value)).subscribe(()=>this.clearForm())
-      )
+      this.store.dispatch(new UpdateUserAction(this.userForm.value))
     } else {
-      this.subscription.add(
-        this.store.dispatch(new AddUserAction(this.userForm.value)).subscribe(() => this.clearForm())
-      )
+      this.store.dispatch(new AddUserAction(this.userForm.value))
     }
+    this.router.navigate(['/users']);
   }
 
   clearForm() {
@@ -67,14 +77,26 @@ export class UserFormComponent implements OnInit {
   }
 
   addRoleToUser(role: Role) {
+    let newUserRoles = this.userForm.value.userRoles as Array<Role>;
+    newUserRoles.push(role);
     this.userForm.patchValue({
-      userRoles: [...this.userForm.value.userRoles, role]
-    })
+
+      userRoles: [...newUserRoles]
+    });
   }
 
-  removeRoleFromUser(userRole: Role){
+  removeRoleFromUser(userRole: Role) {
     this.userForm.patchValue({
-      userRoles: [ ...this.userForm.value.userRoles.filter((role: { id: number; }) => role.id !== userRole.id)]
-    })
+      userRoles: [...this.userForm.value.userRoles.filter((role: { id: number; }) => role.id !== userRole.id)]
+    });
+  }
+
+  editeRole(role: Role) {
+    this.store.dispatch(new SetEditedRoleAction(role));
+    this.editedRoleId = role.id;
+  }
+
+  savedRole() {
+    this.editedRoleId = 0;
   }
 }
