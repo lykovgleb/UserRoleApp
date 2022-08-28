@@ -1,20 +1,14 @@
+button{
+  border-radius: 5px;
+  border:  1px solid;
+  opacity: 0.8;
+  transition-duration: 0.4s;
+}
 
-nav a {
-    padding: 5px 10px;
-    text-decoration: none;
-    margin-right: 10px;
-    margin-top: 10px;
-    display: inline-block;
-    background-color: #e8e8e8;
-    color: #3d3d3d;
-    border-radius: 4px;
-  }
-  
-  nav a:hover {
-    color: white;
-    background-color:  #42545C;
-  }
-  nav a.active {
-    background-color: black;
-    color: white;
-  }
+button:hover {
+  opacity: 1.2;
+}
+
+input {
+  height: 20px;
+}

@@ -1,17 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="submit()">
-    <div class="rolesPull">
-        <label for="roles">Choose roles:</label>
-        <div *ngFor="let role of roles$ |async">
-            <div *ngIf="!userForm.value.userRoles.includes(role)">
-                <div *ngIf="role.id !== editedRoleId">
-                    <button type="button" (click)="addRoleToUser(role)">{{role.name}}</button>
-                    <button type="button" (click)="editeRole(role)">Edit</button>
-                </div>
-                <app-change-role *ngIf="role.id === editedRoleId" (saved)="savedRole()"></app-change-role>
-            </div>
-        </div>
-        <app-add-role></app-add-role>
-    </div>
+<form class="container" [formGroup]="userForm" (ngSubmit)="submit()">
 
     <div class="user">
         <div class="form-group">
@@ -22,11 +9,27 @@
         <div class="form-group">
             <label>Roles:</label>
             <button *ngFor="let userRole of this.userForm.value.userRoles" type="button"
-                (click)="removeRoleFromUser(userRole)">
+                (click)="removeRoleFromUser(userRole)" class="userrolebutton">
                 {{userRole.name}}
             </button>
         </div>
+
+        <button class="savebutton" type="submit">Save</button>
     </div>
 
-    <button type="submit">Save</button>
+    <div class="rolesPull">
+        <label for="roles">Choose roles: </label>
+        <div *ngFor="let role of roles$ |async">
+            <div *ngIf="showRoleButton(role)">
+                <div *ngIf="role.id !== editedRoleId">
+                    <button class="rolebutton" type="button" (click)="addRoleToUser(role)">{{role.name}}</button>
+                    <button class="changerolebutton" type="button" (click)="editeRole(role)">Edit</button>
+                </div>
+
+                <app-change-role *ngIf="role.id === editedRoleId" (saved)="savedRole()"></app-change-role>
+            </div>
+        </div>
+        <app-add-role></app-add-role>
+    </div>
+
 </form>

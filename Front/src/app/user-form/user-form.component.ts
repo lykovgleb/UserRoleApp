@@ -99,4 +99,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
   savedRole() {
     this.editedRoleId = 0;
   }
+
+  showRoleButton(userRole: Role): boolean {
+    let roles = this.userForm.value.userRoles as Array<Role>;
+    return !roles.some(role => role.id === userRole.id);
+  }
 }

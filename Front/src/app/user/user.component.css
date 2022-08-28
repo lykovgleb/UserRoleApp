@@ -1,22 +1,42 @@
-h1 {
-  margin-bottom: 0;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-nav a {
-  padding: 1rem;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #e8e8e8;
-  color: #3d3d3d;
-  border-radius: 4px;
+.container{
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
-nav a:hover {
-  color: white;
-  background-color: #42545C;
+thead{
+  background-color: rgb(243, 243, 243)
 }
 
-nav a.active {
-  background-color: black;
+th {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.deletebutton {
+  background-color: rgb(233, 116, 116);
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.editbutton {
+  background-color: rgb(111, 207, 242);
+  width: 30px;
+  height: 30px;
+}
+
+.addbutton{
+  background-color: rgb(135, 227, 135);
+  font-size: 15px;
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
 }
