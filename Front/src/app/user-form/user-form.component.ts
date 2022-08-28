@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   userForm: FormGroup = this.fb.group({
     userId: 0,
     userName: ['', Validators.required],
-    userRoles: [[]]
+    userRoles: [[], Validators.required]
   });;
   editUser = false;
   private sb = new Subscription();

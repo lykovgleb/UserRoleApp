@@ -1,4 +1,4 @@
 <div class="form-group">
-    <input placeholder="New role" class="form-control" name="name" [(ngModel)]="role.name" />
-    <button type="button" (click)="addRole()">Add</button>
+    <input required placeholder="New role" class="form-control" [(ngModel)]="role.name" #name="ngModel" />
+    <button [disabled]="name.invalid" type="button" (click)="addRole()">Add</button>
 </div>

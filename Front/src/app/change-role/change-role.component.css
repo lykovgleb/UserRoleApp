@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+button {
+    width: 50px;
+    height: 25px;
+    margin-top: 5px;
+}
+
+.savebutton {
+    background-color: rgb(135, 227, 135);
+}
+
+.deletebutton {
+    background-color: rgb(233, 116, 116);
+    margin-left: 5px;
+}
+
+input {
+    width: 150px;
+}

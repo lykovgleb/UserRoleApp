@@ -9,39 +9,39 @@ export class HttpService {
     constructor(private http: HttpClient) { }
 
     getUsers() {
-        return this.http.get<User[]>(environment.baseUrl + '/User').pipe();
+        return this.http.get<User[]>(environment.baseUrl + '/User');
     }
 
     getUser(id: number) {
-        return this.http.get<User>(environment.baseUrl + '/User/' + id).pipe();
+        return this.http.get<User>(environment.baseUrl + '/User/' + id);
     }
 
     addUser(user: User) {
-        return this.http.post<User>(environment.baseUrl + '/User', user).pipe();
+        return this.http.post<User>(environment.baseUrl + '/User', user);
     }
 
     changeUser(user: User) {
-        return this.http.put<User>(environment.baseUrl + '/User', user).pipe();
+        return this.http.put<User>(environment.baseUrl + '/User', user);
     }
 
     deleteUser(user: User) {
-        return this.http.delete<User>(environment.baseUrl + '/User/' + user.userId).pipe();
+        return this.http.delete<User>(environment.baseUrl + '/User/' + user.userId);
     }
 
     getRoles() {
-        return this.http.get<Role[]>(environment.baseUrl + '/Role').pipe();
+        return this.http.get<Role[]>(environment.baseUrl + '/Role');
     }
 
     addRole(role: Role) {
-        return this.http.post<Role>(environment.baseUrl + '/Role', role).pipe();
+        return this.http.post<Role>(environment.baseUrl + '/Role', role);
     }
 
     deleteRole(role: Role) {
-        return this.http.delete<Role>(environment.baseUrl + '/Role/' + role.id).pipe();
+        return this.http.delete<Role>(environment.baseUrl + '/Role/' + role.id);
     }
 
     changeRole(role: Role) {
-        return this.http.put<Role>(environment.baseUrl + '/Role', role).pipe();
+        return this.http.put<Role>(environment.baseUrl + '/Role', role);
     }
 
 }
