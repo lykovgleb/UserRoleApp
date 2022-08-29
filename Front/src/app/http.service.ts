@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Role } from "./Models/Role";
@@ -25,7 +25,7 @@ export class HttpService {
     }
 
     deleteUser(user: User) {
-        return this.http.delete<User>(environment.baseUrl + '/User/' + user.userId);
+        return this.http.delete(environment.baseUrl + '/User/' + user.userId);
     }
 
     getRoles() {
@@ -37,7 +37,7 @@ export class HttpService {
     }
 
     deleteRole(role: Role) {
-        return this.http.delete<Role>(environment.baseUrl + '/Role/' + role.id);
+        return this.http.delete(environment.baseUrl + '/Role/' + role.id);
     }
 
     changeRole(role: Role) {

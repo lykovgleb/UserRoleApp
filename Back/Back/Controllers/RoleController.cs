@@ -73,8 +73,9 @@ namespace Back.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             try
-            {                
-                return Ok(await _RoleService.DeleteRoleAsync(id));
+            {
+                await _RoleService.DeleteRoleAsync(id);
+                return Ok();
             }
             catch (Exception e)
             {

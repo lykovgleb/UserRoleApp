@@ -16,7 +16,3 @@ button{
 button:hover {
   opacity: 1.2;
 }
-
-input {
-  height: 20px;
-}

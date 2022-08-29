@@ -63,9 +63,9 @@ export class RoleState {
 
         if (!role) return;
 
-        return this.http.deleteRole(role).pipe(tap((deletedRole: Role) => {
+        return this.http.deleteRole(role).pipe(tap(() => {
             const state = ctx.getState()
-            const newState = state.roles.filter( role => role.id !== deletedRole.id)
+            const newState = state.roles.filter( a => a.id !== role.id)
             ctx.patchState({
                 roles: newState
             })

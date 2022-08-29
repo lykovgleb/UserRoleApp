@@ -10,30 +10,38 @@ flex-direction: column;
 align-items: center;
 }
 
-thead{
-  background-color: rgb(243, 243, 243)
+.head{
+  background-color: rgb(243, 243, 243);
 }
 
-th {
+.body th {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgb(220, 218, 218);
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-.deletebutton {
+.role {
+  background-color:rgb(175, 227, 227);
+  border-radius: 5px;
+  padding: 2px;
+  margin: 2px;
+}
+
+.deleteButton {
   background-color: rgb(233, 116, 116);
   width: 30px;
   height: 30px;
   margin-left: 5px;
 }
 
-.editbutton {
-  background-color: rgb(111, 207, 242);
+.editButton {
   width: 30px;
   height: 30px;
 }
 
-.addbutton{
+.addUserButton{
   background-color: rgb(135, 227, 135);
   font-size: 15px;
   width: 200px;

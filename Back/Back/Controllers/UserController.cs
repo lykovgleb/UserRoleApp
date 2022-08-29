@@ -77,7 +77,8 @@ namespace Back.Controllers
         {
             try
             {
-                return Ok(await _UserService.DeleteUserAsync(id));
+                await _UserService.DeleteUserAsync(id);
+                return Ok();
             }
             catch (Exception e)
             {

@@ -62,9 +62,9 @@ export class UserState {
 
         if (!user) return;
 
-        return this.http.deleteUser(user).pipe(tap((deletedUser: User) => {
+        return this.http.deleteUser(user).pipe(tap(() => {
             const state = ctx.getState()
-            const newState = state.users.filter(user => user.userId !== deletedUser.userId)
+            const newState = state.users.filter(a => a.userId !== user.userId)
             ctx.patchState({
                 users: newState
             })

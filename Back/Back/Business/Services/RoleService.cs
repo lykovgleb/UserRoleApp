@@ -26,13 +26,11 @@ namespace Back.Business.Services
             return _mapper.Map<RoleDTO>(role);
         }
 
-        public async Task<RoleDTO> DeleteRoleAsync(int id)
+        public async Task DeleteRoleAsync(int id)
         {
             var role = await GetRoleIfExistAsync(id);
             _userRoleContext.Roles.Remove(role);
             await _userRoleContext.SaveChangesAsync();
-            var roleDTO = _mapper.Map<RoleDTO>(role);
-            return roleDTO;
         }
 
         public async Task<RoleDTO> GetRoleByIdAsync(int id)

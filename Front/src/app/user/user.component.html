@@ -1,22 +1,22 @@
 <div class="container">
-    <p><button class="addbutton" type="button" routerLink="/form">Add user</button></p>
-    <div>
-        <thead>
+    <p><button class="addUserButton" type="button" routerLink="/form">Add user</button></p>
+    <table>
+        <thead class="head">
             <th>Id</th>
             <th>Name</th>
             <th>Roles</th>
             <th>Controls</th>
         </thead>
-        <tbody>
+        <tbody class="body">
             <tr *ngFor="let user of users$ | async">
                 <th>{{user.userId}}</th>
                 <th>{{user.userName}}</th>
-                <th><span *ngFor="let role of user.userRoles"> {{role.name}} </span></th>
+                <th><span class="role" *ngFor="let role of user.userRoles">{{role.name}}</span></th>
                 <th>
-                    <button class="editbutton" (click)="changeUser(user)">Edit</button>
-                    <button class="deletebutton" (click)="deleteUser(user)">Del</button>
+                    <button class="editButton" (click)="changeUser(user)">Edit</button>
+                    <button class="deleteButton" (click)="deleteUser(user)">Del</button>
                 </th>
             </tr>
         </tbody>
-    </div>
+    </table>
 </div>
