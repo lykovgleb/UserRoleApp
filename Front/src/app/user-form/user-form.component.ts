@@ -48,14 +48,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.sb.add(
       this.user$.subscribe(user => {
         if (user) {
-          console.log(user)
           this.userForm.patchValue({
             userId: user.userId,
             userName: user.userName,
             userRoles: [...user.userRoles]
           })
           this.editUser = true;
-          console.log(this.userForm)
         }
         else this.editUser = false
       })

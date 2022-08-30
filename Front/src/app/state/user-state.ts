@@ -39,7 +39,6 @@ export class UserState {
                 ...state,
                 users: users
             })
-            console.log("GetUsersAction")
         }))
     }
 
@@ -53,7 +52,6 @@ export class UserState {
             ctx.patchState({
                 users: [...state.users, user]
             })
-            console.log("AddUsersAction")
         }))
     }
 
@@ -68,7 +66,6 @@ export class UserState {
             ctx.patchState({
                 users: newState
             })
-
         }))
     }
 

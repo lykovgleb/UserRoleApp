@@ -16,7 +16,7 @@
 }
 
 .addRoleButton {
-    background-color:rgb(175, 227, 227);
+    background-color: rgb(175, 227, 227);
     width: 150px;
     height: 25px;
     margin-top: 10px;
@@ -34,7 +34,7 @@
 }
 
 .removeRoleButton {
-    background-color:rgb(175, 227, 227);
+    background-color: rgb(175, 227, 227);
     padding: 2px 10px;
     margin-left: 5px;
     margin-top: 5px;

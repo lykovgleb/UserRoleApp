@@ -10,15 +10,15 @@ import { AddRoleAction } from '../state/role-actions';
   styleUrls: ['./add-role.component.css']
 })
 export class AddRoleComponent {
-  
-  role : Role = {
+
+  role: Role = {
     id: 0,
     name: "",
   };
 
-  constructor(private http : HttpService, private store: Store) { }
+  constructor(private http: HttpService, private store: Store) { }
 
-  
+
 
   addRole() {
     this.store.dispatch(new AddRoleAction(this.role))

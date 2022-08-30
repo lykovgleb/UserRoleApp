@@ -23,7 +23,7 @@ export class RoleState {
     constructor(private http: HttpService) { }
 
     @Action(AddRoleAction)
-    addRole(ctx: StateContext<RoleStateModel>, {role}: AddRoleAction) {
+    addRole(ctx: StateContext<RoleStateModel>, { role }: AddRoleAction) {
 
         if (!role) return;
 
@@ -33,8 +33,7 @@ export class RoleState {
             ctx.patchState({
                 roles: [...state.roles, newRole]
             })
-            console.log("AddRoleAction")         
-        }))        
+        }))
     }
 
     @Action(GetRolesAction)
@@ -43,14 +42,13 @@ export class RoleState {
             const state = ctx.getState();
             ctx.setState({
                 ...state,
-                roles:roles
+                roles: roles
             })
-            console.log("GetRolesAction")
         }))
     }
 
     @Action(SetEditedRoleAction)
-    setEditedRole(ctx: StateContext<RoleStateModel>, {role}: SetEditedRoleAction) {
+    setEditedRole(ctx: StateContext<RoleStateModel>, { role }: SetEditedRoleAction) {
         const state = ctx.getState()
         ctx.setState({
             ...state,
@@ -65,7 +63,7 @@ export class RoleState {
 
         return this.http.deleteRole(role).pipe(tap(() => {
             const state = ctx.getState()
-            const newState = state.roles.filter( a => a.id !== role.id)
+            const newState = state.roles.filter(a => a.id !== role.id)
             ctx.patchState({
                 roles: newState
             })

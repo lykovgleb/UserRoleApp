@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit, OnDestroy{
+export class UserComponent implements OnInit, OnDestroy {
 
   @Select(UserSelectors.users) users$!: Observable<User[]>;
 
@@ -26,10 +26,10 @@ export class UserComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.sb.add(
-    this.users$.subscribe(users => {
-      if(users.length === 0) {this.store.dispatch(new GetUsersAction())}
-    }    
-    ))
+      this.users$.subscribe(users => {
+        if (users.length === 0) { this.store.dispatch(new GetUsersAction()) }
+      }
+      ))
   }
 
   deleteUser(user: User) {
