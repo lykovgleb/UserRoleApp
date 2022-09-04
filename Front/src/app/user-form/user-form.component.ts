@@ -23,7 +23,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   editedRoleId: number = 0
 
   userForm: FormGroup = this.fb.group({
-    userId: 0,
+    userId: "00000000-0000-0000-0000-000000000000",
     userName: ['', Validators.required],
     userRoles: [[], Validators.required]
   });;

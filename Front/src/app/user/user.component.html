@@ -2,14 +2,12 @@
     <p><button class="addUserButton" type="button" routerLink="/form">Add user</button></p>
     <table>
         <thead class="head">
-            <th>Id</th>
             <th>Name</th>
             <th>Roles</th>
             <th>Controls</th>
         </thead>
         <tbody class="body">
             <tr *ngFor="let user of users$ | async">
-                <th>{{user.userId}}</th>
                 <th>{{user.userName}}</th>
                 <th><span class="role" *ngFor="let role of user.userRoles">{{role.name}}</span></th>
                 <th>

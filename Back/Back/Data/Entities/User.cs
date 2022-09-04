@@ -1,9 +1,14 @@
-﻿namespace Back.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Back.Data.Entities
 {
     public class User
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public IList<Role> Roles { get; set; } = new List<Role>();
+        public List<Role> Roles { get; set; } = new List<Role>();
     }
 }

@@ -3,7 +3,10 @@ using Back.Business.Interfaces;
 using Back.Business.Models;
 using Back.Data;
 using Back.Data.Entities;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.Runtime.Serialization.Formatters;
 
 namespace Back.Business.Services
 {
@@ -23,8 +26,16 @@ namespace Back.Business.Services
             var user = new User()
             {
                 Name = userDTO.UserName
-            };            
-            foreach (var role in userDTO.UserRoles )
+            };
+            if (userDTO.UserId != Guid.Empty)
+            {
+                user.Id = userDTO.UserId;
+            }
+            else
+            {
+                user.Id = new Guid();
+            }
+            foreach (var role in userDTO.UserRoles)
             {
                 var roleToAdd = await GetRoleIfExistAsync(role.Id);
                 user.Roles.Add(roleToAdd);
@@ -34,14 +45,14 @@ namespace Back.Business.Services
             return _mapper.Map<UserDTO>(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteUserAsync(Guid id)
         {
             var user = await GetUserIfExistAsync(id);
             _userRoleContext.Users.Remove(user);
             await _userRoleContext.SaveChangesAsync();
         }
 
-        public async Task<UserDTO> GetUserByIdAsync(int id)
+        public async Task<UserDTO> GetUserByIdAsync(Guid id)
         {
             var user = await GetUserIfExistAsync(id);
             var userDTO = _mapper.Map<UserDTO>(user);
@@ -57,21 +68,11 @@ namespace Back.Business.Services
 
         public async Task<UserDTO> UpdateUserAsync(UserDTO userDTO)
         {
-            var user = _mapper.Map<User>(userDTO);
-            var oldUser = await GetUserIfExistAsync(user.Id);
-            oldUser.Name = user.Name;
-            oldUser.Roles.Clear();
-            foreach (var role in userDTO.UserRoles)
-            {
-                var roleToAdd = await GetRoleIfExistAsync(role.Id);
-                oldUser.Roles.Add(roleToAdd);
-            }
-            await _userRoleContext.SaveChangesAsync();
-            var newUserDTO = _mapper.Map<UserDTO>(oldUser);
-            return newUserDTO;
+            await DeleteUserAsync(userDTO.UserId);
+            return _mapper.Map<UserDTO>(await AddUserAsync(userDTO));
         }
 
-        private async Task<User> GetUserIfExistAsync(int id)
+        private async Task<User> GetUserIfExistAsync(Guid id)
         {
             var user = await _userRoleContext.Users.Include(c => c.Roles).FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)

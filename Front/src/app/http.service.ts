@@ -12,7 +12,7 @@ export class HttpService {
         return this.http.get<User[]>(environment.baseUrl + '/User');
     }
 
-    getUser(id: number) {
+    getUser(id: string) {
         return this.http.get<User>(environment.baseUrl + '/User/' + id);
     }
 
