@@ -18,15 +18,15 @@ import { UserSelectors } from '../state/user-selector';
 export class UserFormComponent implements OnInit, OnDestroy {
 
   @Select(UserSelectors.editedUser) user$!: Observable<User>
-
   @Select(RoleSelectors.roles) roles$!: Observable<Role[]>
-  editedRoleId: number = 0
+
+  editedRoleId: string = ""
 
   userForm: FormGroup = this.fb.group({
     userId: "00000000-0000-0000-0000-000000000000",
     userName: ['', Validators.required],
     userRoles: [[], Validators.required]
-  });;
+  })
   editUser = false;
   private sb = new Subscription();
 
@@ -85,7 +85,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   removeRoleFromUser(userRole: Role) {
     this.userForm.patchValue({
-      userRoles: [...this.userForm.value.userRoles.filter((role: { id: number; }) => role.id !== userRole.id)]
+      userRoles: [...this.userForm.value.userRoles.filter((role: { id: string; }) => role.id !== userRole.id)]
     });
   }
 
@@ -95,7 +95,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   savedRole() {
-    this.editedRoleId = 0;
+    this.editedRoleId = "";
   }
 
   showRoleButton(userRole: Role): boolean {

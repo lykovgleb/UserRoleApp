@@ -3,10 +3,7 @@ using Back.Business.Interfaces;
 using Back.Business.Models;
 using Back.Data;
 using Back.Data.Entities;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
-using System.Runtime.Serialization.Formatters;
 
 namespace Back.Business.Services
 {
@@ -25,21 +22,14 @@ namespace Back.Business.Services
         {
             var user = new User()
             {
-                Name = userDTO.UserName
+                Name = userDTO.UserName,
+                Id = userDTO.UserId
             };
-            if (userDTO.UserId != Guid.Empty)
-            {
-                user.Id = userDTO.UserId;
-            }
-            else
-            {
-                user.Id = new Guid();
-            }
             foreach (var role in userDTO.UserRoles)
             {
                 var roleToAdd = await GetRoleIfExistAsync(role.Id);
                 user.Roles.Add(roleToAdd);
-            }
+            };
             await _userRoleContext.Users.AddAsync(user);
             await _userRoleContext.SaveChangesAsync();
             return _mapper.Map<UserDTO>(user);
@@ -80,7 +70,7 @@ namespace Back.Business.Services
             return user;
         }
 
-        private async Task<Role> GetRoleIfExistAsync(int id)
+        private async Task<Role> GetRoleIfExistAsync(Guid id)
         {
             var role = await _userRoleContext.Roles.FindAsync(id);
             if (role == null)

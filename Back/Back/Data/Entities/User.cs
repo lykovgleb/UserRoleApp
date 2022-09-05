@@ -5,8 +5,6 @@ namespace Back.Data.Entities
 {
     public class User
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public List<Role> Roles { get; set; } = new List<Role>();

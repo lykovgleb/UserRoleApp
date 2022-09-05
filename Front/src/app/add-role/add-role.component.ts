@@ -12,7 +12,7 @@ import { AddRoleAction } from '../state/role-actions';
 export class AddRoleComponent {
 
   role: Role = {
-    id: 0,
+    id: "00000000-0000-0000-0000-000000000000",
     name: "",
   };
 
@@ -23,7 +23,7 @@ export class AddRoleComponent {
   addRole() {
     this.store.dispatch(new AddRoleAction(this.role))
     this.role = {
-      id: 0,
+      id:  "00000000-0000-0000-0000-000000000000",
       name: "",
     };
   }
