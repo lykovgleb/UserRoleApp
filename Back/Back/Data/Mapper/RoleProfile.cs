@@ -2,7 +2,7 @@
 using Back.Business.Models;
 using Back.Data.Entities;
 
-namespace Back.Business.Mapper
+namespace Back.Data.Mapper
 {
     public class RoleProfile : Profile
     {

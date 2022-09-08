@@ -1,63 +1,45 @@
-﻿using AutoMapper;
-using Back.Business.Interfaces;
+﻿using Back.Business.Interfaces;
 using Back.Business.Models;
-using Back.Data;
-using Back.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+using Back.Data.Repository.Interfaces;
 
 namespace Back.Business.Services
 {
     public class RoleService : IRoleService
     {
-        private readonly UserRoleContext _userRoleContext;
-        private readonly IMapper _mapper;
+        private readonly IRoleRepository _roleRepository;
 
-        public RoleService(UserRoleContext userRoleContext, IMapper mapper)
+        public RoleService(IRoleRepository roleRepository)
         {
-            _userRoleContext = userRoleContext;
-            _mapper = mapper;
+            _roleRepository = roleRepository;
         }
 
         public async Task<RoleDTO> AddRoleAsync(RoleDTO roleDTO)
         {
-            var role = _mapper.Map<Role>(roleDTO);
-            await _userRoleContext.Roles.AddAsync(role);
-            await _userRoleContext.SaveChangesAsync();
-            return _mapper.Map<RoleDTO>(role);
+            var role = await _roleRepository.CreateAsync(roleDTO);
+            await _roleRepository.SaveAsync();
+            return role;
         }
 
         public async Task DeleteRoleAsync(Guid id)
         {
-            var role = await GetRoleIfExistAsync(id);
-            _userRoleContext.Roles.Remove(role);
-            await _userRoleContext.SaveChangesAsync();
+            await _roleRepository.DeleteAsync(id);
+            await _roleRepository.SaveAsync();
         }
 
         public async Task<RoleDTO> GetRoleByIdAsync(Guid id)
         {
-            var role = await GetRoleIfExistAsync(id);
-            var roleDTO = _mapper.Map<RoleDTO>(role);
-            return roleDTO;
+            return await _roleRepository.GetByIdAsync(id);
         }
 
         public async Task<IList<RoleDTO>> GetRolesAsync()
         {
-            var roles = await _userRoleContext.Roles.ToListAsync();
-            var rolesDTO = _mapper.Map<IList<RoleDTO>>(roles);
-            return rolesDTO;
+            return await _roleRepository.GetAllAsync();
         }
 
         public async Task<RoleDTO> UpdateRoleAsync(RoleDTO roleDTO)
         {
-            await DeleteRoleAsync(roleDTO.Id);
-            return _mapper.Map<RoleDTO>(await AddRoleAsync(roleDTO));
-        }
-
-        private async Task<Role> GetRoleIfExistAsync(Guid id)
-        {
-            var role = await _userRoleContext.Roles.FindAsync(id);
-            if (role == null)
-                throw new Exception("The Role has not been found");
+            var role = await _roleRepository.UpdateAsync(roleDTO);
+            await _roleRepository.SaveAsync();
             return role;
         }
     }
